@@ -1,29 +1,29 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(freertos_examples)
+project(my_app)
 
-add_executable(afr_demo src/main.c)
+file(GLOB SOURCES 
+    "*.c" ABSOLUTE 
+    # "amazon-freertos/libraries/freertos_plus/standard/utils/src/iot_system_init.c"
+    )
+file(GLOB HEADERS 
+    "/config_files/*.h" ABSOLUTE
+)
 
-# Tell IDF build to link against this target.
-set(IDF_PROJECT_EXECUTABLE afr_demo)
+add_executable(my_app ${SOURCES} ${HEADERS})
+set(IDF_PROJECT_EXECUTABLE my_app)
 
-# Add some extra components. IDF_EXTRA_COMPONENT_DIRS is an variable used by ESP-IDF
-# to collect extra components.
-get_filename_component(
-    EXTRA_COMPONENT_DIRS
+# Add some external components to the project
+get_filename_component(EXTRA_COMPONENT_DIRS
     "components/foo" ABSOLUTE
 )
-list(APPEND IDF_EXTRA_COMPONENT_DIRS ${EXTRA_COMPONENT_DIRS})
+set(IDF_EXTRA_COMPONENT_DIRS ${EXTRA_COMPONENT_DIRS})
+set(IDF_SDKCONFIG_DEFAULTS "${CMAKE_CURRENT_LIST_DIR}/sdkconfig.defaults")
 
-# As of now there's no offical way to redefine config files outside of Amazon FreeRTOS source tree.
-# This is a temporary approach to inject an include path so that this takes precedence over the
-# config file directory inside Amazon FreeRTOS.
-include_directories(BEFORE amazon-freertos-configs)
-
-# Add amazon freertos as an subdirectory. AFR_BOARD tells which board to target.
 set(AFR_BOARD espressif.esp32_devkitc CACHE INTERNAL "")
 add_subdirectory(amazon-freertos)
 
-# Link against the mqtt demo so that we can use it. Dependencies of this demo are transitively
-# linked.
-target_link_libraries(afr_demo PRIVATE AFR::demo_mqtt)
+target_link_libraries(my_app PRIVATE AFR::demo_base)
+target_link_libraries(my_app PRIVATE AFR::ble)
+target_link_libraries(my_app PRIVATE AFR::mqtt)
+target_link_libraries(my_app PRIVATE AFR::dev_mode_key_provisioning)

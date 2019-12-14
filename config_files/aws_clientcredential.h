@@ -23,8 +23,8 @@
  * http://www.FreeRTOS.org
  */
 
-#ifndef __AWS_CLIENTCREDENTIAL__H__
-#define __AWS_CLIENTCREDENTIAL__H__
+#ifndef __AWS_MY_CLIENTCREDENTIAL__H__
+#define __AWS_MY_CLIENTCREDENTIAL__H__
 
 /*
  * @brief MQTT Broker endpoint.
@@ -55,13 +55,13 @@
  *
  * @todo If you are using Wi-Fi, set this to your network name.
  */
-#define clientcredentialWIFI_SSID                    ""
+#define clientcredentialWIFI_SSID                    "Parman-bedroom_5G"
 
 /*
  * @brief Password needed to join Wi-Fi network.
  * @todo If you are using WPA, set this to your network password.
  */
-#define clientcredentialWIFI_PASSWORD                ""
+#define clientcredentialWIFI_PASSWORD                "027293704"
 
 /*
  * @brief Wi-Fi network security type.
