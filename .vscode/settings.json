@@ -9,7 +9,9 @@
         "aws_demo.h": "c",
         "aws_demo_config.h": "c",
         "aws_dev_mode_key_provisioning.h": "c",
-        "iot_logging_setup.h": "c"
+        "iot_logging_setup.h": "c",
+        "iot_ble_numericcomparison.h": "c"
     },
-    "python.pythonPath": "D:\\Python27\\python.exe"
+    "python.pythonPath": "D:\\Python27\\python.exe",
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
 }
