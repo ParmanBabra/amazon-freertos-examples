@@ -31,7 +31,7 @@
 #include "task.h"
 
 /* Demo includes */
-#include "aws_demo.h"
+// #include "runner.h"
 #include "aws_dev_mode_key_provisioning.h"
 #include "iot_demo_logging.h"
 
@@ -96,6 +96,8 @@ esp_err_t xBLEStackTeardown(void);
 static void spp_uart_init(void);
 #endif
 
+// void RunDemos(void);
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -130,7 +132,8 @@ int app_main(void)
         ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_BLE));
 #endif /* if BLE_ENABLED */
         /* Run all demos. */
-        //DEMO_RUNNER_RunDemos();
+
+        //RunDemos();
         IotLogInfo("OK");
     }
 
@@ -138,9 +141,53 @@ int app_main(void)
      * including the WiFi initialization, is performed in the RTOS daemon task
      * startup hook. */
     /* Following is taken care by initialization code in ESP IDF */
-    /* vTaskStartScheduler(); */
+    vTaskStartScheduler();
     return 0;
 }
+
+// /* Forward declaration of network connected DEMO callback to be renamed from #define in aws_demo_config.h */
+// #ifdef DEMO_networkConnectedCallback
+// void DEMO_networkConnectedCallback(bool awsIotMqttMode,
+//                                    const char *pIdentifier,
+//                                    void *pNetworkServerInfo,
+//                                    void *pNetworkCredentialInfo,
+//                                    const IotNetworkInterface_t *pNetworkInterface);
+// #else
+// #define DEMO_networkConnectedCallback (NULL)
+// #endif
+
+// /* Forward declaration of network disconnected DEMO callback to be renamed from #define in aws_demo_config.h */
+// #ifdef DEMO_networkDisconnectedCallback
+// void DEMO_networkDisconnectedCallback(const IotNetworkInterface_t *pNetworkInterface);
+// #else
+// #define DEMO_networkDisconnectedCallback (NULL)
+// #endif
+
+// int run_FUNCTION(bool awsIotMqttMode,
+//                  const char *pIdentifier,
+//                  void *pNetworkServerInfo,
+//                  void *pNetworkCredentialInfo,
+//                  const IotNetworkInterface_t *pNetworkInterface)
+// {
+//     IotLogInfo("OK");
+//     return 1;
+// }
+
+// void RunDemos(void)
+// {
+//     /* These demos are shared with the C SDK and perform their own initialization and cleanup. */
+//     static runnerContext_t mqttDemoContext =
+//         {
+//             .networkTypes = democonfigNETWORK_TYPES,
+//             .demoFunction = run_FUNCTION,
+//             .networkConnectedCallback = DEMO_networkConnectedCallback,
+//             .networkDisconnectedCallback = DEMO_networkDisconnectedCallback};
+
+//     Iot_CreateDetachedThread(runTask,
+//                              &mqttDemoContext,
+//                              democonfigDEMO_PRIORITY,
+//                              democonfigDEMO_STACKSIZE);
+// }
 
 /*-----------------------------------------------------------*/
 extern void vApplicationIPInit(void);

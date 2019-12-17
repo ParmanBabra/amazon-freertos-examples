@@ -3,15 +3,19 @@ cmake_minimum_required(VERSION 3.13)
 project(my_app)
 
 file(GLOB SOURCES 
-    "*.c" ABSOLUTE 
+    "application_code/*.c" ABSOLUTE 
     # "amazon-freertos/libraries/freertos_plus/standard/utils/src/iot_system_init.c"
     )
 file(GLOB HEADERS 
-    "/config_files/*.h" ABSOLUTE
+    "config_files/*.h" ABSOLUTE
+    "application_code/include/*.h" ABSOLUTE
 )
 
 add_executable(my_app ${SOURCES} ${HEADERS})
+target_include_directories(my_app PRIVATE "application_code/include/")
+
 set(IDF_PROJECT_EXECUTABLE my_app)
+
 
 # Add some external components to the project
 get_filename_component(EXTRA_COMPONENT_DIRS
@@ -46,3 +50,12 @@ target_link_libraries(my_app PRIVATE AFR::serializer)
 target_link_libraries(my_app PRIVATE AFR::shadow)
 target_link_libraries(my_app PRIVATE AFR::tls)
 target_link_libraries(my_app PRIVATE AFR::wifi)
+
+message("++++++++++++++++++++++++++++++++++")
+message("++++          MY APP          ++++")
+message("++++++++++++++++++++++++++++++++++")
+
+message("IDF_EXTRA_COMPONENT_DIRS: ${IDF_EXTRA_COMPONENT_DIRS}")
+
+message("Glob Headers : ${HEADERS}")
+message("Glob Source : ${SOURCES}")
