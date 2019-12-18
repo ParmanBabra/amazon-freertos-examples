@@ -13,7 +13,10 @@
         "iot_ble_numericcomparison.h": "c",
         "runner.h": "c",
         "iot_init.h": "c",
-        "iot_config.h": "c"
+        "iot_config.h": "c",
+        "iot_config_common.h": "c",
+        "iot_system_init.h": "c",
+        "iot_logging_task.h": "c"
     },
     "python.pythonPath": "D:\\Python27\\python.exe",
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
