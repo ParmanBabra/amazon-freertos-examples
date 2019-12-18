@@ -7,6 +7,12 @@ add_executable(my_app src/main.c)
 # Tell IDF build to link against this target.
 set(IDF_PROJECT_EXECUTABLE my_app)
 
+get_filename_component(
+    EXTRA_COMPONENT_DIRS
+    "components/foo" ABSOLUTE
+)
+list(APPEND IDF_EXTRA_COMPONENT_DIRS ${EXTRA_COMPONENT_DIRS})
+
 # Add amazon freertos as a subdirectory. AFR_BOARD tells which board to target.
 set(AFR_BOARD espressif.esp32_devkitc CACHE INTERNAL "")
 add_subdirectory(amazon-freertos)
